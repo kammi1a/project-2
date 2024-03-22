@@ -5,7 +5,7 @@ vector<string> Tokenize(string &expression, unordered_map<string, int> &opMap)
 {
     vector<string> tokens = {};
     string temp = "";
-    bool lastTokenWasOp = true; // Переменная для отслеживания того, является ли последний токен оператором
+    bool lastTokenWasOp = true;
 
     for (char c : expression)
     {
@@ -13,21 +13,21 @@ vector<string> Tokenize(string &expression, unordered_map<string, int> &opMap)
             continue;
         else if (opMap.find(string(1, c)) != opMap.end())
         {
-            if (c == '-' && lastTokenWasOp) // Проверяем, является ли минус унарным
-                temp += c;                   // Если да, добавляем его к текущему токену
+            if (c == '-' && lastTokenWasOp) 
+                temp += c;                 
             else
             {
-                if (!temp.empty()) // Если текущий токен не пустой, добавляем его в вектор токенов
+                if (!temp.empty()) 
                     tokens.push_back(temp);
-                temp = ""; // Сбрасываем временную переменную
+                temp = ""; 
                 tokens.push_back(string(1, c));
-                lastTokenWasOp = true; // Устанавливаем флаг оператора для следующего токена
+                lastTokenWasOp = true; 
             }
         }
         else
         {
-            temp += c;              // Добавляем символ к текущему токену
-            lastTokenWasOp = false; // Устанавливаем флаг оператора на false, так как токен не является оператором
+            temp += c;             
+            lastTokenWasOp = false; 
         }
     }
 
@@ -45,7 +45,7 @@ vector<string> InfixToPostfix(vector<string> &infix, unordered_map<string, int> 
     infix.push_back(")");
     for (string token : infix)
     {
-        if (opMap.find(token) == opMap.end()) // oparand
+        if (opMap.find(token) == opMap.end()) 
             postfix.push_back(token);
         else if (token == "(")
             stack.push_back(token);
@@ -58,7 +58,7 @@ vector<string> InfixToPostfix(vector<string> &infix, unordered_map<string, int> 
             }
             stack.pop_back();
         }
-        else // operator
+        else 
         {
             while (stack.size() > 0 && opMap[token] <= opMap[stack.back()])
             {
@@ -121,9 +121,9 @@ float CalculatePostfix(vector<string> &postfix, unordered_map<string, int> &opMa
                     result = n2 + n1;
                     break;
                 case '-':
-                    if (token.size() == 1) // Бинарный оператор -
+                    if (token.size() == 1) 
                         result = n2 - n1;
-                    else // Унарный оператор -
+                    else
                         result = -n1;
                     break;
                 case '*':
