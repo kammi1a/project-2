@@ -177,7 +177,7 @@ int main()
 
         cout << "Do you want to continue? (y/n): ";
         cin >> choice;
-        cin.ignore(); // Clear the input buffer
+        cin.ignore(); 
 
     } while (choice == 'y' || choice == 'Y');
 
